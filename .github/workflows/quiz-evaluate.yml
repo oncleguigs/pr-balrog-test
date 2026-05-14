@@ -8,7 +8,7 @@ permissions:
   checks: write
   pull-requests: write
   contents: read
-  actions: read
+  actions: write   # read: artifact lookup, write: workflow_dispatch for !balrog retry
 
 jobs:
   evaluate-quiz:
