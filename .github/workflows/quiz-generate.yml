@@ -8,6 +8,7 @@ permissions:
   checks: write
   pull-requests: write
   contents: read
+  models: read
 
 jobs:
   generate-quiz:
