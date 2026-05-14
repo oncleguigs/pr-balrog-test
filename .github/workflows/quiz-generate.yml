@@ -2,18 +2,25 @@ name: PR Balrog — Generate Quiz
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, reopened, ready_for_review]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to regenerate quiz for (used by !balrog retry)'
+        required: true
+        type: number
 
 permissions:
   checks: write
   pull-requests: write
   contents: read
+  models: read
 
 jobs:
   generate-quiz:
     name: Generate PR Quiz
     runs-on: ubuntu-latest
-    if: github.event.pull_request.draft == false
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.draft == false
 
     steps:
       - name: Checkout action
@@ -33,3 +40,4 @@ jobs:
           quiz-size: 'auto'
           min-lines-threshold: '5'
           language: 'auto'
+          pr-number-override: ${{ github.event.inputs.pr_number || '' }}
