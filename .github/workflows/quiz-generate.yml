@@ -1,0 +1,35 @@
+name: PR Balrog — Generate Quiz
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  checks: write
+  pull-requests: write
+  contents: read
+
+jobs:
+  generate-quiz:
+    name: Generate PR Quiz
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+
+    steps:
+      - name: Checkout action
+        uses: actions/checkout@v4
+        with:
+          repository: oncleguigs/pr-balrog
+          ref: main
+          path: .balrog
+
+      - name: Generate quiz
+        uses: ./.balrog
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          ai-provider: github-models
+          pass-threshold: '80'
+          max-attempts: '3'
+          quiz-size: 'auto'
+          min-lines-threshold: '5'
+          language: 'auto'
