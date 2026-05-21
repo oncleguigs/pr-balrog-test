@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       pr_number:
-        description: 'PR number to regenerate quiz for (used by !balrog retry)'
+        description: "PR number to regenerate quiz for (used by !balrog retry)"
         required: true
         type: number
 
@@ -35,9 +35,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           ai-provider: github-models
-          pass-threshold: '80'
-          max-attempts: '3'
-          quiz-size: 'auto'
-          min-lines-threshold: '5'
-          language: 'auto'
+          pass-threshold: "80"
+          max-attempts: "3"
+          quiz-size: "auto"
+          min-lines-threshold: "5"
+          language: "auto"
+          answer-mode: "checkbox"
           pr-number-override: ${{ github.event.inputs.pr_number || '' }}
