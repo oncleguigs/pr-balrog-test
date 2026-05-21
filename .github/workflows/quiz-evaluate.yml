@@ -14,7 +14,9 @@ jobs:
   evaluate-quiz:
     name: Evaluate Quiz Answers
     runs-on: ubuntu-latest
-    if: startsWith(github.event.comment.body, '!balrog')
+    if: >
+      (github.event.action == 'created' && startsWith(github.event.comment.body, '!balrog')) ||
+      github.event.action == 'edited'
 
     steps:
       - name: Checkout action
