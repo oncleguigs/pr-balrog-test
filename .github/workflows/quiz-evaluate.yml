@@ -2,13 +2,13 @@ name: PR Balrog — Evaluate Answers
 
 on:
   issue_comment:
-    types: [created]
+    types: [created, edited]
 
 permissions:
   checks: write
   pull-requests: write
   contents: read
-  actions: write   # read: artifact lookup, write: workflow_dispatch for !balrog retry
+  actions: write # read: artifact lookup, write: workflow_dispatch for !balrog retry
 
 jobs:
   evaluate-quiz:
@@ -28,4 +28,4 @@ jobs:
         uses: ./.balrog/evaluate
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          language: 'auto'
+          language: "auto"
